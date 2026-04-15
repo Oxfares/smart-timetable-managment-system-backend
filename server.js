@@ -1,26 +1,41 @@
-//server.js
 import express from "express";
+import cors from "cors";
 import "dotenv/config";
+import sessionRoutes from "./routes/sessionRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 import logger from "./middleware/logger.js";
 
-
-
 const app = express();
-const port = process.env.PORT || 8000;
 
-//Body Parser Middleware
+// Enable CORS for ALL origins and methods
+// This ensures your React (Web) and Flutter (Mobile) apps won't be blocked
+app.use(
+	cors({
+		origin: "*",
+		methods: ["GET", "POST", "PUT", "DELETE"],
+		allowedHeaders: [
+			"Content-Type",
+			"Authorization",
+			"ngrok-skip-browser-warning",
+		],
+	}),
+);
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
-//middleware
+// Auth routes usually don't need the custom logger if it's for timetable tracking
+app.use("/api/auth", authRoutes);
+
+// Custom Middleware
 app.use(logger);
 
-// //routes
-// app.use("/login", loginRouter);
-// app.use("/signUp", signUp);
+// Main Routes
+app.use("/api/sessions", sessionRoutes);
 
-// app.use("/api/users", users);
+const port = process.env.PORT || 8000;
 
-app.listen(port, "0.0.0.0", () =>
-	console.log(`server is listining from port ${port}`),
-);
+// "0.0.0.0" is perfect here; it allows access from your local network (for Flutter)
+app.listen(port, "0.0.0.0", () => {
+	console.log(`🚀 Server active on port ${port}`);
+	console.log(`🔗 Local API: http://localhost:${port}/api`);
+});

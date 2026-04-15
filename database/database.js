@@ -8,6 +8,8 @@ const pool = mysql
 		user: process.env.mysql_user,
 		password: process.env.mysql_password,
 		database: process.env.mysql_database,
+		waitForConnections: true,
+		connectionLimit: 10,
 	})
 	.promise();
 
