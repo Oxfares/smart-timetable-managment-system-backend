@@ -18,7 +18,7 @@ A comprehensive full-stack solution for university timetable management, featuri
 * Node.js & Express.js
 * MySQL (Relational Database)
 * JWT (Authentication)
-* PDFKit (Document Generation)
+* CSV (Document Generation)
 
 **Frontend:**
 * React.js (Admin Dashboard)
@@ -82,7 +82,7 @@ The backend follows a Controller-Service-Route pattern to ensure scalability and
 | POST | `/api/sessions/demand` | Submit a teacher change request |
 
 ## ⚖️ License
-This project was developed for the L2 Semester 4 Academic Presentation.
+This project was developed for the Coding Master Competition.
 
 ---
-Developed by **Fares** & Team.
+Developed by **Fares** .
